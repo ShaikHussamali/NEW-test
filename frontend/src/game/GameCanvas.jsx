@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const WS_BASE = (host => {
-  // default to localhost:8000; will work when running backend locally
-  return `ws://${host || 'localhost:8000'}/ws/`
-})(window.location.hostname)
+// Backend URL config: prefer runtime override from backend-config.js (window.BACKEND_WS_URL)
+const WS_BASE = (() => {
+  try {
+    if (typeof window !== 'undefined' && window.BACKEND_WS_URL) return window.BACKEND_WS_URL
+    const host = window.location.hostname
+    return `ws://${host || 'localhost:8000'}/ws/`
+  } catch (e) {
+    return 'ws://localhost:8000/ws/'
+  }
+})()
 
 function clamp(v, a, b) { return Math.max(a, Math.min(b, v)) }
 
