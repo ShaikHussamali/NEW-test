@@ -1,0 +1,19 @@
+name: Trigger Render Deploy for Backend
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy via Render API
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+          method: POST
+          headers: |
+            Authorization: Bearer ${{ secrets.RENDER_API_KEY }}
+            Content-Type: application/json
+          body: '{}'

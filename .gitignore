@@ -81,5 +81,5 @@ Thumbs.db
 *.sublime-workspace
 
 # Keep frontend public assets (images) tracked; ignore other build artifacts
-frontend/public/*.png
-# If you want to add the Naruto image to the repo, remove the line above.
+# Allow only the Naruto image to be tracked (remove this line if you want to track other images)
+!frontend/public/naruto.png
